@@ -40,7 +40,7 @@ const toggle = () => {
     if (props.searchfields && open.value) {
         setTimeout(() => {
             inputRef.value.focus();
-        });
+        }, 200);
     }
 };
 </script>
