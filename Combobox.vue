@@ -46,8 +46,8 @@ const toggle = () => {
 </script>
 
 <template>
-    <div class="py-3 w-full relative border border-gray-700 bg-gray-900 text-gray-300 rounded-md shadow-sm cursor-default select-none" :class="{ 'rounded-b-none border-indigo-500 outline-indigo-500 outline-1 outline': open }">
-        <div class="h-full px-3 flex justify-between items-center" @click="toggle">
+    <div class="w-full relative border border-gray-700 bg-gray-900 text-gray-300 rounded-md shadow-sm cursor-default select-none" :class="{ 'rounded-b-none border-indigo-500 outline-indigo-500 outline-1 outline': open }">
+        <div class="h-full p-3 flex justify-between items-center" @click="toggle">
             <div class="leading-none">
                 <template v-if="modelValue">
                     {{ title(modelValue) }}
