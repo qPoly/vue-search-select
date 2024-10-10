@@ -8,6 +8,14 @@ const inputRef = ref(null);
 const searchQuery = ref('');
 const open = ref(false);
 
+const title = typeof props.title === 'function'
+    ? props.title
+    : (row) => row[props.title];
+
+const subtitle = typeof props.subtitle === 'function'
+    ? props.subtitle
+    : (row) => row[props.subtitle];
+
 const filteredRows = computed(() =>
     searchQuery.value === ''
         ? props.rows
@@ -32,19 +40,19 @@ const toggle = () => {
     if (props.searchfields && open.value) {
         setTimeout(() => {
             inputRef.value.focus();
-        });
+        }, 200);
     }
 };
 </script>
 
 <template>
-    <div class="h-[42px] w-full relative border border-gray-700 bg-gray-900 text-gray-300 rounded-md shadow-sm cursor-default select-none" :class="{ 'rounded-b-none border-indigo-500 outline-indigo-500 outline-1 outline': open }">
-        <div class="h-full px-3 flex justify-between items-center" @click="toggle">
+    <div class="w-full relative border border-gray-700 bg-gray-900 text-gray-300 rounded-md shadow-sm cursor-default select-none" :class="{ 'rounded-b-none border-indigo-500 outline-indigo-500 outline-1 outline': open }">
+        <div class="h-full p-3 flex justify-between items-center" @click="toggle">
             <div class="leading-none">
                 <template v-if="modelValue">
-                    {{ modelValue[title] }}
+                    {{ title(modelValue) }}
                     <div class="text-xs text-gray-400 ">
-                        {{ modelValue[subtitle] }}
+                        {{ subtitle(modelValue) }}
                     </div>
                 </template>
             </div>
@@ -62,9 +70,9 @@ const toggle = () => {
 
                 <ul class="max-h-96 overflow-y-auto border-gray-700 border-t">
                     <li @click="onSelect(row)" v-for="row in filteredRows" class="py-1.5 pl-3 leading-4 cursor-pointer select-none hover:bg-gray-800">
-                        {{ row[title] }}
+                        {{ title(row) }}
                         <div class="text-xs text-gray-400">
-                            {{ row[subtitle] }}
+                            {{ subtitle(row) }}
                         </div>
                     </li>
                     <li v-if="!filteredRows.length" class="py-1.5 pl-3 text-gray-400 italic">No results...</li>
